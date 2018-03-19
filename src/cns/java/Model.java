@@ -29,13 +29,6 @@ package cns.java;
  *
  * @author john
  */
-public class CnsJava {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        System.out.println("Hey");
-    }
+public class Model {
     
 }

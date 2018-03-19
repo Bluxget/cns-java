@@ -25,6 +25,9 @@
  */
 package cns.java;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author john
@@ -36,6 +39,23 @@ public class CnsJava {
      */
     public static void main(String[] args) {
         System.out.println("Hey");
+        
+        DataBase db = new DataBase();
+        ResultSet result = db.request("SELECT * FROM utilisateurs");
+        
+        try 
+        {
+            while(result.next()) 
+            {
+                System.out.print(result.getString("nom") + " " + result.getString("prenom"));
+
+                System.out.println();
+             }
+        }
+        catch(SQLException ex) 
+        {
+           ex.printStackTrace();
+        }
     }
     
 }

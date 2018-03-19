@@ -40,9 +40,9 @@ public class DataBase {
 
     String type = "mysql";
     String ip = "localhost";
-    String database = "cns";
+    String database = "cns_prod";
     String user = "root";
-    String mdp = "toor";
+    String mdp = "root";
     Connection connexion = null;
     
     public DataBase() 
@@ -58,7 +58,7 @@ public class DataBase {
         }
     }
 
-    public ResultSet request(String request) 
+    public ResultSet select(String request) 
     {
         ResultSet result = null;
 
@@ -66,6 +66,22 @@ public class DataBase {
         {
            Statement stmt = this.connexion.createStatement();
            result = stmt.executeQuery(request);
+        } 
+        catch(SQLException ex) 
+        {
+           ex.printStackTrace();
+        }
+        
+        return result;
+    }
+    public ResultSet update(String request) 
+    {
+        ResultSet result = null;
+
+        try 
+        {
+           Statement stmt = this.connexion.createStatement();
+           stmt.executeUpdate(request);
         } 
         catch(SQLException ex) 
         {

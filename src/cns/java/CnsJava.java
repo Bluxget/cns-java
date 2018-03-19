@@ -41,7 +41,9 @@ public class CnsJava {
         System.out.println("Hey");
         
         DataBase db = new DataBase();
-        ResultSet result = db.request("SELECT * FROM utilisateurs");
+        ResultSet result = db.select("SELECT * FROM utilisateurs");
+        //db.update("INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) VALUES (NULL, 'test', 'test', 'tatayoyo');");
+        //db.update("DELETE FROM `utilisateurs` WHERE `utilisateurs`.`nom` = 'test' AND `utilisateurs`.`prenom` = 'test' AND `utilisateurs`.`mot_de_passe` = 'tatayoyo' ;");
         
         try 
         {

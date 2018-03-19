@@ -74,7 +74,7 @@ public class DataBase {
         
         return result;
     }
-    public ResultSet update(String request) 
+    public ResultSet edit(String request) 
     {
         ResultSet result = null;
 

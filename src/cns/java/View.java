@@ -29,6 +29,6 @@ package cns.java;
  *
  * @author john
  */
-public class View {
+public abstract class View {
     
 }

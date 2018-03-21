@@ -25,6 +25,7 @@
  */
 package cns.java;
 
+import cns.java.views.MainView;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -37,7 +38,7 @@ public class CnsJava {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println("Hey");
         
         DataBase db = new DataBase();
@@ -58,6 +59,10 @@ public class CnsJava {
         {
            ex.printStackTrace();
         }
-    }
+    }*/
     
+    public static void main(String[] args)
+    {
+        MainView view = new MainView();
+    }
 }

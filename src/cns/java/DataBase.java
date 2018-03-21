@@ -74,10 +74,9 @@ public class DataBase {
         
         return result;
     }
-    public ResultSet edit(String request) 
+    
+    public void edit(String request) 
     {
-        ResultSet result = null;
-
         try 
         {
            Statement stmt = this.connexion.createStatement();
@@ -87,7 +86,5 @@ public class DataBase {
         {
            ex.printStackTrace();
         }
-        
-        return result;
     }
 }

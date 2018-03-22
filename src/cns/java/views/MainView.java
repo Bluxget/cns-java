@@ -24,36 +24,56 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package cns.java.views;
+
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+
 
 /**
  *
  * @author Matthias
  */
-public class MainView extends JFrame{
+public class MainView extends JFrame {
 
-
-    public MainView()
-    {
+    private JTable tableau;
+ 
+    public MainView() {
         super();
-        this.setTitle("CNS - Administrateur");
-        //this.setVisible(true);
+ 
+        this.setTitle("CNS - Administration");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-    }
-    
-    public void afficherTableau()
-    {
-        String[] entetes = {"Prénom", "Nom", "Couleur favorite", "Homme", "Sport"};
-        String[][] donnees = {{"Prénom", "Nom", "Couleur favorite", "Homme", "Sport"}};
  
-        JTable tableau = new JTable(donnees, entetes);
+        String[] columnNames = {"Nom", "Prénom", "Mot de passe", "Status"};
+        String[][] data = {
+            {"Jo", "Bu", "azerty123", "Apprenti"},
+            {"Hey", "Hy", "erzaet45", "Apprenti"},
+            {"Oh", "Hi", "bgfdb53", "Apprenti"},
+            {"Uh", "Er", "retez23", "Apprenti"}
+        };
+        
+        JTable table = new JTable(data, columnNames);
  
-        getContentPane().add(tableau.getTableHeader(), BorderLayout.NORTH);
-        getContentPane().add(tableau, BorderLayout.CENTER);
+        getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);
+ 
+        JPanel boutons = new JPanel();
+ 
+        boutons.add(new JButton("Ajouter"));
+        boutons.add(new JButton("Supprimer"));
+ 
+        getContentPane().add(boutons, BorderLayout.SOUTH);
  
         pack();
+    }
+    
+    public void afficher()
+    {
+        this.setVisible(true);
     }
 }

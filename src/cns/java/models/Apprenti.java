@@ -35,4 +35,8 @@ public class Apprenti extends Utilisateur{
     {
         super(nom, prenom, mdp);
     }
+    public void saveApprenti()
+    {
+        
+    }
 }

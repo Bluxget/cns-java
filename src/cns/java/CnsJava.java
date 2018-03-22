@@ -25,6 +25,7 @@
  */
 package cns.java;
 
+import cns.java.models.Apprenti;
 import cns.java.views.MainView;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -66,4 +67,5 @@ public class CnsJava {
         MainView view = new MainView();
         view.afficher();
     }
+    
 }

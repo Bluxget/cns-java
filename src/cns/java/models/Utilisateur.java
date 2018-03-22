@@ -31,7 +31,7 @@ package cns.java.models;
  */
 public abstract class Utilisateur extends Model {
     
-    private int id;
+    private int id = 0;
     private String nom, prenom, mdp;
     
     public Utilisateur(String nom, String prenom, String mdp)
@@ -56,6 +56,39 @@ public abstract class Utilisateur extends Model {
     public String getMdp()
     {
         return this.mdp;
+    }
+    
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+    public void setNom(String nom)
+    {
+        this.nom = nom;
+    }
+    public void setPrenom(String prenom)
+    {
+        this.prenom = prenom;
+    }
+    public void setMdp(String mdp)
+    {
+        this.mdp = mdp;
+    }
+    public void saveUser()
+    {
+        if (this.id > 0)
+        {
+            String request = "UPDATE `utilisateurs` "
+                           + "SET nom = '"+this.nom+"',  prenom = '"+this.prenom+"',  mdp = '"+this.mdp+"' "
+                           + "WHERE id = "+this.id+" ;";
+            this.db.edit(request);
+        } 
+        else 
+        {
+            String request = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) "
+                            +"VALUES (NULL, '"+this.nom+"', '"+this.prenom+"', '"+this.mdp+"');";
+            this.db.edit(request);
+        }
     }
     
 }

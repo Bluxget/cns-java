@@ -25,10 +25,12 @@
  */
 package cns.java.models;
 
+import cns.java.DataBase;
+
 /**
  *
  * @author john
  */
 public abstract class Model {
-    
+    DataBase db = new DataBase();
 }

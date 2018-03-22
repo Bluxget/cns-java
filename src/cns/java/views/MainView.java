@@ -34,6 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 
 /**
@@ -42,7 +43,7 @@ import javax.swing.JTable;
  */
 public class MainView extends JFrame {
 
-    private JTable tableau;
+    private JTable table;
  
     public MainView() {
         super();
@@ -59,6 +60,8 @@ public class MainView extends JFrame {
         };
         
         JTable table = new JTable(data, columnNames);
+        
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
  
         getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);
  
@@ -70,6 +73,11 @@ public class MainView extends JFrame {
         getContentPane().add(boutons, BorderLayout.SOUTH);
  
         pack();
+    }
+    
+    public JTable getTable()
+    {
+        return this.table;
     }
     
     public void afficher()

@@ -25,6 +25,7 @@
  */
 package cns.java.models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -34,14 +35,33 @@ import java.sql.SQLException;
 public class Apprenti extends Utilisateur{
     
     private Section section;
+    private Tuteur tuteur;
     
-    public Apprenti(String nom, String prenom, String mdp, String section) throws SQLException
+    public Apprenti(String nom, String prenom, String mdp, Section section, Tuteur tuteur) throws SQLException
     {
         super(nom, prenom, mdp);
-        this.section = new Section(section);
+        this.section = section;
+        this.tuteur = tuteur;
+    }
+    public Section getSection()
+    {
+        return this.section;
+    }
+    public Tuteur getTuteur()
+    {
+        return this.tuteur;
+    }
+    public void setSection(Section section)
+    {
+        this.section = section;
+    }
+    public void setTuteur(Tuteur tuteur)
+    {
+        this.tuteur = tuteur;
     }
     public void saveApprenti()
-    {
-        
+    {   
+        this.saveUser();
     }
+    //TODO: faire methode de verif presence table apprentis avant de terminer saveApprenti.
 }

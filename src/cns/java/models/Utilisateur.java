@@ -25,6 +25,8 @@
  */
 package cns.java.models;
 
+import java.sql.ResultSet;
+
 /**
  *
  * @author jbulach
@@ -90,5 +92,6 @@ public abstract class Utilisateur extends Model {
             this.db.edit(request);
         }
     }
+    
     
 }

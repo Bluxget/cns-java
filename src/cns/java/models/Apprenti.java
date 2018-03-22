@@ -25,6 +25,8 @@
  */
 package cns.java.models;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Matthias
@@ -33,7 +35,7 @@ public class Apprenti extends Utilisateur{
     
     private Section section;
     
-    public Apprenti(String nom, String prenom, String mdp, String section)
+    public Apprenti(String nom, String prenom, String mdp, String section) throws SQLException
     {
         super(nom, prenom, mdp);
         this.section = new Section(section);

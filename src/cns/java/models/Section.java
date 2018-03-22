@@ -24,6 +24,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package cns.java.models;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -34,10 +37,10 @@ public class Section extends Model{
     private int id = 0;
     private String nom;
     
-    public Section(int id, String nom)
+    public Section(String nom) throws SQLException
     {
-        this.id = id;
         this.nom = nom;
+        this.setId();
     }
     
     public int getId()
@@ -51,6 +54,29 @@ public class Section extends Model{
     public void setNom(String nom)
     {
         this.nom = nom;
+    }
+    private void setId() throws SQLException
+    {
+        String request = "SELECT id_section FROM `sections` WHERE `nom` = '"+this.nom+"' ;";
+        ResultSet result = db.select(request);
+        if (result.getFetchSize() == 1)
+        {
+            try 
+            {
+                while(result.next()) 
+                {
+                    this.id = result.getInt("id_section");
+                }
+            }
+            catch(SQLException ex) 
+            {
+               ex.printStackTrace();
+            }
+        }
+        
+            
+        
+        
     }
     public void saveSection()
     {

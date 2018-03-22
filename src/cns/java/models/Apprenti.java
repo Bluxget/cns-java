@@ -31,9 +31,12 @@ package cns.java.models;
  */
 public class Apprenti extends Utilisateur{
     
-    public Apprenti(String nom, String prenom, String mdp)
+    private Section section;
+    
+    public Apprenti(String nom, String prenom, String mdp, String section)
     {
         super(nom, prenom, mdp);
+        this.section = new Section(section);
     }
     public void saveApprenti()
     {

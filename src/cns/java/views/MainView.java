@@ -24,7 +24,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package cns.java.views;
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 
 /**
  *
@@ -45,6 +47,7 @@ public class MainView extends JFrame{
     public void afficherTableau()
     {
         String[] entetes = {"Prénom", "Nom", "Couleur favorite", "Homme", "Sport"};
+        String[][] donnees = {{"Prénom", "Nom", "Couleur favorite", "Homme", "Sport"}};
  
         JTable tableau = new JTable(donnees, entetes);
  

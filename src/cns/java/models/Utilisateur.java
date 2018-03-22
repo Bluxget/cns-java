@@ -79,8 +79,8 @@ public abstract class Utilisateur extends Model {
         if (this.id > 0)
         {
             String request = "UPDATE `utilisateurs` "
-                           + "SET nom = '"+this.nom+"',  prenom = '"+this.prenom+"',  mdp = '"+this.mdp+"' "
-                           + "WHERE id = "+this.id+" ;";
+                           + "SET nom = '"+this.nom+"',  prenom = '"+this.prenom+"',  mot_de_passe = '"+this.mdp+"' "
+                           + "WHERE id_utilisateur = "+this.id+" ;";
             this.db.edit(request);
         } 
         else 

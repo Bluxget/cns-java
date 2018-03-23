@@ -26,6 +26,7 @@
 package cns.java.models;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -33,9 +34,12 @@ import java.sql.SQLException;
  */
 public class Responsable extends Utilisateur {
     
+    private List<Section> listeSections;
+    
     public Responsable(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
+        //this.setSectionsList();
     }
     
 }

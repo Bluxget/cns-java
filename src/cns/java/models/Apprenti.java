@@ -37,11 +37,11 @@ public class Apprenti extends Utilisateur{
     private Section section;
     private Tuteur tuteur;
     
-    public Apprenti(String nom, String prenom, String mdp, Section section, Tuteur tuteur) throws SQLException
+    public Apprenti(String nom, String prenom, String mdp) throws SQLException//, Section section, Tuteur tuteur) throws SQLException
     {
         super(nom, prenom, mdp);
-        this.section = section;
-        this.tuteur = tuteur;
+        //this.section = section;
+        //this.tuteur = tuteur;
     }
     public Section getSection()
     {

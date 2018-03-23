@@ -76,7 +76,7 @@ public class CnsJava {
     {
         Section section = new Section("SLAM");
         Tuteur tuteur = new Tuteur("simon","marie","test1");
-        Apprenti apprenti = new Apprenti("vaytet","matthias","test",section,tuteur);
+        Apprenti apprenti = new Apprenti("vaytet","matthias","test");
         //System.out.println(section.getId());
         //System.out.println(tuteur.getId());
         //System.out.println(apprenti.getId());

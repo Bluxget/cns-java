@@ -80,7 +80,7 @@ public class CnsJava {
         //System.out.println(section.getId());
         //System.out.println(tuteur.getId());
         //System.out.println(apprenti.getId());
-        System.out.println(apprenti.isInDb());
+        System.out.println(apprenti.isInApprenti());
         
     }
     

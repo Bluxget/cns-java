@@ -25,7 +25,9 @@
  */
 package cns.java.models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -33,8 +35,39 @@ import java.sql.SQLException;
  */
 public class Formateur extends Utilisateur{
     
+    private List<Section> listeSections;
+    
     public Formateur(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
+        this.setSectionsList();
+    }
+    private void setSectionsList() throws SQLException
+    {
+        if (this.getId() > 0)
+        {   
+            ResultSet result = this.db.select("SELECT formateurs_sections.id_section as id_section, sections.nom as nom "
+                                       + "FROM `formateurs_sections` "
+                                       + "JOIN sections ON formateurs_sections.id_section = sections.id_section "
+                                       + "WHERE formateurs_sections.id_formateur = "+this.getId()+" ;");
+            try 
+            {
+                while(result.next()) 
+                {
+                    
+                    Section section = new Section(result.getString("nom"));
+                    this.listeSections.add(section);
+                 }
+            }
+            catch(SQLException ex) 
+            {
+               ex.printStackTrace();
+            }
+        }
+    }
+    
+    public void addSection(Section section)
+    {
+        this.listeSections.add(section);
     }
 }

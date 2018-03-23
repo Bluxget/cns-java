@@ -90,7 +90,7 @@ public abstract class Utilisateur extends Model {
     {
         this.mdp = mdp;
     }
-    public void saveUser()
+    public void saveUser()throws SQLException
     {
         if (this.id > 0)
         {
@@ -106,6 +106,15 @@ public abstract class Utilisateur extends Model {
             this.db.edit(request);
             
         }
+    }
+    public void deleteUser()
+    {
+        if (this.id > 0)
+        {
+            String request = "DELETE FROM `utilisateurs` "
+                           + "WHERE id_utilisateur = "+this.id+" ;";
+            this.db.edit(request);
+        } 
     }
     
     

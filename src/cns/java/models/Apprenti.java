@@ -59,12 +59,51 @@ public class Apprenti extends Utilisateur{
     {
         this.tuteur = tuteur;
     }
-    public void saveApprenti()
+    @Override
+    public void saveUser() throws SQLException
     {   
-        this.saveUser();
+        if (this.getId() > 0)
+        {
+            String request = "UPDATE `utilisateurs` "
+                           + "SET nom = '"+this.getNom()+"',  prenom = '"+this.getPrenom()+"',  mot_de_passe = '"+this.getMdp()+"' "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+        else 
+        {
+            String request = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) "
+                            +"VALUES (NULL, '"+this.getNom()+"', '"+this.getPrenom()+"', '"+this.getMdp()+"');";
+            this.db.edit(request);
+            
+        }
+        if (this.isInApprenti())
+        {
+            String request = "UPDATE `apprentis` "
+                           + "SET id_utilisateur = '"+this.getId()+"',  id_section = '"+this.section.getId()+"',  id_tuteur = '"+this.tuteur.getId()+"' "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        }
+        else
+        {
+            String request = "INSERT INTO `apprentis` (`id_utilisateur`, `id_section`, `id_tuteur`) "
+                            +"VALUES ('"+this.getId()+"', '"+this.section.getId()+"', '"+this.tuteur.getId()+"');";
+            this.db.edit(request);
+        }
     }
-    //TODO: faire methode de verif presence table apprentis avant de terminer saveApprenti.
-    public boolean isInDb() throws SQLException
+    @Override
+    public void deleteUser()
+    {
+        if (this.getId() > 0)
+        {
+            String request = "DELETE FROM `Apprentis` "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+            request = "DELETE FROM `utilisateurs` "
+                    + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+    }
+    public boolean isInApprenti() throws SQLException
     {
         if (this.getId() != 0)
         {
@@ -77,8 +116,5 @@ public class Apprenti extends Utilisateur{
         }
         else{return false;}
     }
-    
-    
-    
 }
 

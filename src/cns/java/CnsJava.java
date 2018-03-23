@@ -74,13 +74,11 @@ public class CnsJava {
     }*/
     public static void main(String[] args) throws SQLException
     {
-        Section section = new Section("SLAM");
-        Tuteur tuteur = new Tuteur("simon","marie","test1");
         Apprenti apprenti = new Apprenti("vaytet","matthias","test");
-        //System.out.println(section.getId());
-        //System.out.println(tuteur.getId());
-        //System.out.println(apprenti.getId());
-        System.out.println(apprenti.isInApprenti());
+        Section section = apprenti.getSection();
+        Tuteur tuteur = apprenti.getTuteur();
+        System.out.println(section.getNom());
+        System.out.println(tuteur.getNom()+" "+tuteur.getPrenom()+" "+tuteur.getMdp());
         
     }
     

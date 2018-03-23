@@ -43,12 +43,57 @@ public class Apprenti extends Utilisateur{
         //this.section = section;
         //this.tuteur = tuteur;
     }
-    public Section getSection()
+    public Section getSection() throws SQLException
     {
+        if (this.section == null && this.getId() >0)
+        {
+            if (this.isInApprenti())
+            {
+                ResultSet result = this.db.select("SELECT sections.nom as nom " 
+                                               +  "FROM sections " 
+                                               +  "JOIN apprentis ON sections.id_section = apprentis.id_section " 
+                                               +  "WHERE apprentis.id_utilisateur = "+this.getId()+" ;");
+                try 
+                {
+                    while(result.next()) 
+                    {
+                        this.section = new Section(result.getString("nom"));
+                    }
+                }
+                catch(SQLException ex) 
+                {
+                   ex.printStackTrace();
+                }
+            }
+        }
         return this.section;
     }
-    public Tuteur getTuteur()
+    public Tuteur getTuteur() throws SQLException
     {
+        if (this.tuteur == null && this.getId() >0)
+        {
+            if (this.isInApprenti())
+            {
+                ResultSet result = this.db.select("SELECT utilisateurs.nom as nom, "
+                                                + "utilisateurs.prenom as prenom, "
+                                                + "utilisateurs.mot_de_passe as mdp "
+                                                + "FROM utilisateurs "
+                                                + "JOIN apprentis "
+                                                + "ON utilisateurs.id_utilisateur = apprentis.id_tuteur "
+                                                + "WHERE apprentis.id_utilisateur = "+this.getId()+" ;");
+                try 
+                {
+                    while(result.next()) 
+                    {
+                        this.tuteur = new Tuteur(result.getString("nom"),result.getString("prenom"),result.getString("mdp"));
+                    }
+                }
+                catch(SQLException ex) 
+                {
+                   ex.printStackTrace();
+                }
+            }
+        }
         return this.tuteur;
     }
     public void setSection(Section section)
@@ -105,12 +150,12 @@ public class Apprenti extends Utilisateur{
     }
     public boolean isInApprenti() throws SQLException
     {
-        if (this.getId() != 0)
+        if (this.getId() > 0)
         {
             String request = "SELECT id_utilisateur FROM apprentis "
-                           + "WHERE id_utilisateur = "+this.getId()+" "
-                           + "AND id_section = "+this.section.getId()+" "
-                           + "AND id_tuteur = "+this.tuteur.getId()+" ;";
+                           + "WHERE id_utilisateur = "+this.getId()+" ";
+                           //+ "AND id_section = "+this.section.getId()+" "
+                           //+ "AND id_tuteur = "+this.tuteur.getId()+" ;";
             ResultSet result = this.db.select(request);
             return result.next();
         }

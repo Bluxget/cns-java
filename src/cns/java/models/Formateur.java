@@ -25,13 +25,15 @@
  */
 package cns.java.models;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Matthias
  */
 public class Formateur extends Utilisateur{
     
-    public Formateur(String nom, String prenom, String mdp)
+    public Formateur(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
     }

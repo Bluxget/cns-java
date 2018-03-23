@@ -56,29 +56,21 @@ public class Section extends Model{
         this.nom = nom;
     }
     private void setId() throws SQLException
-    {
-        String request = "SELECT id_section FROM `sections` WHERE `nom` = '"+this.nom+"' ;";
-        ResultSet result = db.select(request);
-        if (result.getFetchSize() == 1)
+    {   
+        if (this.id == 0)
         {
-            try 
+            String request = "SELECT id_section FROM `sections` WHERE `nom` = '"+this.nom+"' ;";
+            ResultSet result = this.db.select(request);
+
+            if (result.next())
             {
-                while(result.next()) 
-                {
-                    this.id = result.getInt("id_section");
-                }
-            }
-            catch(SQLException ex) 
-            {
-               ex.printStackTrace();
+                this.id = result.getInt("id_section");
             }
         }
         
-            
-        
         
     }
-    public void saveSection()
+    public void saveSection() throws SQLException
     {
         if (id > 0)
         {
@@ -93,5 +85,6 @@ public class Section extends Model{
                             +"VALUES (NULL, '"+this.nom+"');";
             this.db.edit(request);
         }
+        this.setId();
     }
 }

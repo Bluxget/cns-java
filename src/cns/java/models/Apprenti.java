@@ -64,4 +64,21 @@ public class Apprenti extends Utilisateur{
         this.saveUser();
     }
     //TODO: faire methode de verif presence table apprentis avant de terminer saveApprenti.
+    public boolean isInDb() throws SQLException
+    {
+        if (this.getId() != 0)
+        {
+            String request = "SELECT id_utilisateur FROM apprentis "
+                           + "WHERE id_utilisateur = "+this.getId()+" "
+                           + "AND id_section = "+this.section.getId()+" "
+                           + "AND id_tuteur = "+this.tuteur.getId()+" ;";
+            ResultSet result = this.db.select(request);
+            return result.next();
+        }
+        else{return false;}
+    }
+    
+    
+    
 }
+

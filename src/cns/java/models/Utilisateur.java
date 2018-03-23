@@ -26,6 +26,7 @@
 package cns.java.models;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -36,11 +37,12 @@ public abstract class Utilisateur extends Model {
     private int id = 0;
     private String nom, prenom, mdp;
     
-    public Utilisateur(String nom, String prenom, String mdp)
+    public Utilisateur(String nom, String prenom, String mdp) throws SQLException
     {
         this.nom = nom;
         this.prenom = prenom;
         this.mdp = mdp;
+        this.setId();
     }
     
     public int getId()
@@ -60,9 +62,21 @@ public abstract class Utilisateur extends Model {
         return this.mdp;
     }
     
-    public void setId(int id)
-    {
-        this.id = id;
+    private void setId() throws SQLException
+    {   
+        if (this.id == 0)
+        {
+            ResultSet result = this.db.select("SELECT id_utilisateur FROM `utilisateurs` "
+                                            + "WHERE `utilisateurs`.`nom` = '"+this.nom+"' "
+                                            + "AND `utilisateurs`.`prenom` = '"+this.prenom+"' ;");
+                                            //+ "AND `utilisateurs`.`mot_de_passe` = '"+this.mdp+"' ;");
+                                            //ATTENTION LES MDP AVEC CHIFFRES FONT ECHOUER LA DERNIERE PARTIE DE LA REQUETE
+            if (result.next())
+            {
+                this.id = result.getInt("id_utilisateur");
+            }
+        }
+        
     }
     public void setNom(String nom)
     {
@@ -90,6 +104,7 @@ public abstract class Utilisateur extends Model {
             String request = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) "
                             +"VALUES (NULL, '"+this.nom+"', '"+this.prenom+"', '"+this.mdp+"');";
             this.db.edit(request);
+            
         }
     }
     

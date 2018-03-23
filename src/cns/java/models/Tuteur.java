@@ -25,13 +25,15 @@
  */
 package cns.java.models;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author Matthias
  */
 public class Tuteur extends Utilisateur{
     
-    public Tuteur(String nom, String prenom, String mdp)
+    public Tuteur(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
     }

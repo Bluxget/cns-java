@@ -26,6 +26,10 @@
 package cns.java;
 
 import cns.java.models.Apprenti;
+import cns.java.models.Section;
+import cns.java.models.Tuteur;
+import cns.java.models.Utilisateur;
+import cns.java.models.Model;
 import cns.java.views.MainView;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,6 +42,7 @@ public class CnsJava {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      */
     /*public static void main(String[] args) {
         System.out.println("Hey");
@@ -62,10 +67,21 @@ public class CnsJava {
         }
     }*/
     
-    public static void main(String[] args)
+    /*public static void main(String[] args)
     {
         MainView view = new MainView();
         view.afficher();
+    }*/
+    public static void main(String[] args) throws SQLException
+    {
+        Section section = new Section("SLAM");
+        Tuteur tuteur = new Tuteur("simon","marie","test1");
+        Apprenti apprenti = new Apprenti("vaytet","matthias","test",section,tuteur);
+        //System.out.println(section.getId());
+        //System.out.println(tuteur.getId());
+        //System.out.println(apprenti.getId());
+        System.out.println(apprenti.isInDb());
+        
     }
     
 }

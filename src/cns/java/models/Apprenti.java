@@ -40,10 +40,10 @@ public class Apprenti extends Utilisateur{
     public Apprenti(String nom, String prenom, String mdp) throws SQLException//, Section section, Tuteur tuteur) throws SQLException
     {
         super(nom, prenom, mdp);
-        //this.section = section;
-        //this.tuteur = tuteur;
+        this.initSection();
+        this.initTuteur();
     }
-    public Section getSection() throws SQLException
+    private void initSection() throws SQLException
     {
         if (this.section == null && this.getId() >0)
         {
@@ -66,9 +66,8 @@ public class Apprenti extends Utilisateur{
                 }
             }
         }
-        return this.section;
     }
-    public Tuteur getTuteur() throws SQLException
+    private void initTuteur() throws SQLException
     {
         if (this.tuteur == null && this.getId() >0)
         {
@@ -94,6 +93,13 @@ public class Apprenti extends Utilisateur{
                 }
             }
         }
+    }
+    public Section getSection() 
+    {
+        return this.section;
+    }
+    public Tuteur getTuteur() 
+    {
         return this.tuteur;
     }
     public void setSection(Section section)

@@ -25,6 +25,7 @@
  */
 package cns.java.models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -36,5 +37,55 @@ public class Tuteur extends Utilisateur{
     public Tuteur(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
+    }
+    @Override
+    public void saveUser() throws SQLException
+    {   
+        if (this.getId() > 0)
+        {
+            String request = "UPDATE `utilisateurs` "
+                           + "SET nom = '"+this.getNom()+"',  prenom = '"+this.getPrenom()+"',  mot_de_passe = '"+this.getMdp()+"' "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+        else 
+        {
+            String request = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) "
+                            +"VALUES (NULL, '"+this.getNom()+"', '"+this.getPrenom()+"', '"+this.getMdp()+"');";
+            this.db.edit(request);
+            
+        }
+        if (!this.isInTuteur())
+        {
+            String request = "INSERT INTO `tuteurs` (`id_utilisateur`) "
+                            +"VALUES ('"+this.getId()+"');";
+            this.db.edit(request);
+        }
+    }
+    @Override
+    public void deleteUser()
+    {
+        if (this.getId() > 0)
+        {
+            String request = "DELETE FROM `tuteurs` "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+            request = "DELETE FROM `utilisateurs` "
+                    + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+    }
+    public boolean isInTuteur() throws SQLException
+    {
+        if (this.getId() > 0)
+        {
+            String request = "SELECT id_utilisateur FROM tuteurs "
+                           + "WHERE id_utilisateur = "+this.getId()+" ";
+                           //+ "AND id_section = "+this.section.getId()+" "
+                           //+ "AND id_tuteur = "+this.tuteur.getId()+" ;";
+            ResultSet result = this.db.select(request);
+            return result.next();
+        }
+        else{return false;}
     }
 }

@@ -25,6 +25,7 @@
  */
 package cns.java.models;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +40,87 @@ public class Responsable extends Utilisateur {
     public Responsable(String nom, String prenom, String mdp) throws SQLException
     {
         super(nom, prenom, mdp);
-        //this.setSectionsList();
+        this.setSectionsList();
     }
-    
+    public List getSectionsList()
+    {
+        return this.listeSections;
+    }
+    public void addSection(Section section) throws SQLException
+    {
+        this.listeSections.add(section);
+    }
+    @Override
+    public void saveUser() throws SQLException
+    {
+        if (this.getId() > 0)
+        {
+            String request = "UPDATE `utilisateurs` "
+                           + "SET nom = '"+this.getNom()+"',  prenom = '"+this.getPrenom()+"',  mot_de_passe = '"+this.getMdp()+"' "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+        else 
+        {
+            String request = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `mot_de_passe`) "
+                            +"VALUES (NULL, '"+this.getNom()+"', '"+this.getPrenom()+"', '"+this.getMdp()+"');";
+            this.db.edit(request);
+        }
+        for (Section section:this.listeSections)
+        {
+            if (!isSecInDb(section)&&section.getId()>0)
+            {
+                String request = "INSERT INTO `responsables_sections` (`id_responsable`, `id_section`) "
+                                +"VALUES ('"+this.getId()+"', '"+section.getId()+"' ;";
+                this.db.edit(request);
+            }
+        }
+    }
+    @Override
+    public void deleteUser()
+    {
+        if (this.getId() > 0)
+        {
+            String request = "DELETE FROM `responsables` "
+                           + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+            request = "DELETE FROM `utilisateurs` "
+                    + "WHERE id_utilisateur = "+this.getId()+" ;";
+            this.db.edit(request);
+        } 
+    }
+    private boolean isSecInDb(Section section) throws SQLException
+    {
+        if (this.getId() != 0 && section.getId() > 0)
+        {
+            String request = "SELECT id_section FROM responsables_sections "
+                           + "WHERE id_responsable = "+this.getId()+" "
+                           + "AND id_section = "+section.getId()+" ;";
+            ResultSet result = this.db.select(request);
+            return result.next();
+        }
+        else{return false;}
+    }
+    private void setSectionsList() throws SQLException
+    {
+        if (this.getId() > 0)
+        {   
+            ResultSet result = this.db.select("SELECT responsables_sections.id_section as id_section, sections.nom as nom "
+                                            + "FROM `responsables_sections` "
+                                            + "JOIN sections ON responsables_sections.id_section = sections.id_section "
+                                            + "WHERE responsables_sections.id_responsable = "+this.getId()+" ;");
+            try 
+            {
+                while(result.next()) 
+                {
+                    Section section = new Section(result.getString("nom"));
+                    this.listeSections.add(section);
+                }
+            }
+            catch(SQLException ex) 
+            {
+               ex.printStackTrace();
+            }
+        }
+    } 
 }

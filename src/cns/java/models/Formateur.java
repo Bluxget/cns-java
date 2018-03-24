@@ -93,7 +93,7 @@ public class Formateur extends Utilisateur{
     {
         if (this.getId() != 0 && section.getId() > 0)
         {
-            String request = "SELECT id_section FROM formateur_sections "
+            String request = "SELECT id_section FROM formateurs_sections "
                            + "WHERE id_formateur = "+this.getId()+" "
                            + "AND id_section = "+section.getId()+" ;";
             ResultSet result = this.db.select(request);

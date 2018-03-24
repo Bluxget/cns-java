@@ -90,7 +90,7 @@ public abstract class Utilisateur extends Model {
     {
         this.mdp = mdp;
     }
-    public void saveUser()throws SQLException
+    public void saveUser()throws SQLException //code mort mais on le garde au cas ou.
     {
         if (this.id > 0)
         {
@@ -107,7 +107,7 @@ public abstract class Utilisateur extends Model {
             
         }
     }
-    public void deleteUser()
+    public void deleteUser() //code mort mais on le garde au cas ou aussi.
     {
         if (this.id > 0)
         {

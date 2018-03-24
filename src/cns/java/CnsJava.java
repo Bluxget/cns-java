@@ -28,6 +28,8 @@ package cns.java;
 import cns.java.models.Apprenti;
 import cns.java.models.Section;
 import cns.java.models.Tuteur;
+import cns.java.models.Formateur;
+import cns.java.models.Responsable;
 import cns.java.models.Utilisateur;
 import cns.java.models.Model;
 import cns.java.views.MainView;

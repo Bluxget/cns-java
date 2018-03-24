@@ -24,6 +24,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 package cns.java.presenters;
+import cns.java.models.Apprenti;
+import cns.java.models.Section;
+import cns.java.models.Tuteur;
+import cns.java.models.Formateur;
+import cns.java.models.Responsable;
 
 /**
  *
